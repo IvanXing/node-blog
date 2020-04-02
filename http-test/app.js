@@ -7,7 +7,7 @@ const server = http.createServer((req, res) => {
   const path = url.split("?")[0];
   const query = querystring.parse(url.split("?")[1]);
 
-  // 设置返回格式为 JSON
+  // 设置返回格式为JSON
   res.setHeader("Content-type", "application/json");
 
   // 返回的数据
