@@ -8,3 +8,7 @@
   - cross-env NODE_ENV=dev，设置当前是dev环境，兼容linux和windows环境
 
 - npm run dev
+
+## 1. 创建路由
+
+- 新建 src/router/blog.js & user.js
