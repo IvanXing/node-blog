@@ -1,0 +1,3 @@
+- npm init -y
+- 新建bin文件夹，下www.js为入口文件
+- 运行 node bin/www.js ，访问localhost:8000查看结果，先跑通 http
