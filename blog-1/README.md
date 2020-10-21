@@ -9,6 +9,24 @@
 
 - npm run dev
 
+
 ## 1. 创建路由
 
 - 新建 src/router/blog.js & user.js
+
+## 2. 建立数据模型
+
+- 作用：在res.end返回时，返回一个清晰的数据结构，包含errno
+- 新建 src/model/resModel.js
+
+## 3. 处理层 controller
+
+- 新建 src/controller/blog.js
+- Date.now()  =>  1603285217168
+
+## 4. 分层总结
+
+- bin/www.js 中是 createServer 的逻辑
+- app.js 中是设置 请求头，404，以及返回值的公共逻辑，不涉及业务
+- src/router 中 只管路由，参数，返回正确的格式
+- src/controller 中处理 sql 逻辑，返回值
