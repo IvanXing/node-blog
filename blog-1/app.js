@@ -39,10 +39,10 @@ const serverHandle = (req, res) => {
 
   // 处理 url
   const url = req.url;
-  res.path = url.split('?')[0];
+  res.path = url.split('?')[0];  // path是前半部分
 
   // 解析 query 参数
-  req.query = querystring.parse(url.split('?')[0]);
+  req.query = querystring.parse(url.split('?')[1]);  // 参数是后半部分
 
   // 处理 post data
   getPostData(req).then(postData => {
