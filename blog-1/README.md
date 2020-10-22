@@ -31,4 +31,4 @@
 - src/router 中 只管路由，参数，返回正确的格式
 - src/controller 中处理 sql 逻辑，返回值
 
-## 5. GET 直接通过参数处理  POST 异步流接受数据
+## 5. GET 直接通过参数处理  POST 异步流接受数据，需要用promise处理 POST时候的 postData
