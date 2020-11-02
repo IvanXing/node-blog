@@ -1,3 +1,5 @@
+# 一、初始化项目
+
 - npm init -y
 - 新建bin文件夹，下www.js为入口文件
 - 运行 node bin/www.js ，访问localhost:8000查看结果，先跑通 http
@@ -9,6 +11,7 @@
 
 - npm run dev
 
+# 二、项目分层
 
 ## 1. 创建路由
 
@@ -28,7 +31,11 @@
 
 - bin/www.js 中是 createServer 的逻辑
 - app.js 中是设置 请求头，404，以及返回值的公共逻辑，不涉及业务
-- src/router 中 只管路由，参数，返回正确的格式
-- src/controller 中处理 sql 逻辑，返回值
+- src/router 中 只管路由相关，来什么参数，返回给客户端什么，且是正确的格式
+- src/controller 中处理 sql 逻辑，返回值，根据参数处理数据
 
 ## 5. GET 直接通过参数处理  POST 异步流接受数据，需要用promise处理 POST时候的 postData
+
+## 6. 路由和API
+
+- API = URL（路由） + get/post + 参数/返回值
