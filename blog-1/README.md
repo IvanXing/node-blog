@@ -39,3 +39,14 @@
 ## 6. 路由和API
 
 - API = URL（路由） + get/post + 参数/返回值
+
+# 三、MySQL 基础
+
+- https://dev.mysql.com/downloads/mysql/
+- https://dev.mysql.com/downloads/workbench/
+- `show databases;`
+
+## 1. 建库
+
+- 创建 myblog 数据库
+- 执行 show databases; 查询
