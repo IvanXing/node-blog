@@ -50,3 +50,113 @@
 
 - 创建 myblog 数据库
 - 执行 show databases; 查询
+
+## 2. 建表
+
+- 两张表 users表 和blogs表
+
+```
+id  username  password  realname state
+id  title  content  createtime  author
+```
+
+- longtext可以存储4g大小  bigint(20) 存储13位时间
+
+```
+column  datatype  pk主键  nn不为空  AI自动增加  Default默认值
+id  int Y Y Y --
+username  varchar(20) -- Y -- --
+password varchar(20) -- Y -- -- 
+realname varchar(10) -- Y -- --
+state INT -- Y -- 1
+```
+
+```
+column  datatype  pk主键  nn不为空  AI自动增加  Default默认值
+id  int Y Y Y --
+title  varchar(50) -- Y -- --
+content longtext -- Y -- -- 
+createtime bigint(20) -- Y -- 0
+author varchar(20) -- Y -- -- 
+```
+
+```sql
+CREATE TABLE `myblog`.`users` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `username` VARCHAR(20) NOT NULL,
+  `password` VARCHAR(20) NOT NULL,
+  `realname` VARCHAR(10) NOT NULL,
+  PRIMARY KEY (`id`));
+
+CREATE TABLE `myblog`.`blogs` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(50) NOT NULL,
+  `content` LONGTEXT NOT NULL,
+  `createtime` BIGINT(20) NOT NULL DEFAULT 0,
+  `author` VARCHAR(20) NOT NULL,
+  PRIMARY KEY (`id`));
+
+ALTER TABLE `myblog`.`users` 
+ADD COLUMN `state` INT NOT NULL DEFAULT 1 AFTER `realname`;
+
+ALTER TABLE `myblog`.`users` 
+DROP COLUMN `state`;
+```
+
+## 3. 操作表
+
+```sql
+use myblog;
+-- show tables;
+
+-- 插入
+insert into users(username, `password`, realname) values ('zhangsan', '123', '张三');
+insert into users(username, `password`, realname) values ('lisi', '123', '李四');
+
+-- 查询全表列 * 消耗性能
+select * from users;
+-- 查询局部
+select id, username from users;
+
+select * from users where username='zhangsan';
+select * from users where username='zhangsan' and `password`='123';
+select * from users where username='zhangsan' or `password`='123';
+select * from users where username like '%zhang%';
+select * from users where `password` like '%1%';
+
+-- 排序 默认正序 desc倒序
+select * from users where `password` like '%1%' order by id;
+select * from users where `password` like '%1%' order by id desc;
+
+-- 更新 和 删除
+update users set realname='李四2' where username='lisi';
+-- 取消safe update设置
+SET SQL_SAFE_UPDATES = 0;
+
+delete from users where username = 'lisi';
+
+select * from users;
+select * from users where state = '1';
+-- state !== 0
+select * from users where state <> '0';
+
+update users set state = '0' where username = 'lisi';
+update users set state = '1' where username = 'lisi';
+
+insert into blogs (title, content, createtime, author) values ('标题A', '内容A', 1604477996182, 'zhangsan');
+insert into blogs (title, content, createtime, author) values ('标题B', '内容B', 1604478256477, 'lisi');
+
+select * from blogs;
+select * from users;
+
+select * from blogs order by createtime desc;
+
+select * from blogs where author = 'lisi' order by createtime desc;
+
+select * from blogs where title like '%A%' order by createtime desc;
+
+select version();
+```
+
+- mysql >= 5版本时 varchar(10) 可以存储10个汉字
+- `Date.now()` 转化时间戳
