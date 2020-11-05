@@ -49,6 +49,9 @@
 ## 1. 建库
 
 - 创建 myblog 数据库
+```
+CREATE SCHEMA `myblog` ;
+```
 - 执行 show databases; 查询
 
 ## 2. 建表
