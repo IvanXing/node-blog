@@ -50,7 +50,7 @@
 
 - 创建 myblog 数据库
 ```
-CREATE SCHEMA `myblog` ;
+CREATE SCHEMA `myblog` DEFAULT CHARACTER SET utf8 ;
 ```
 - 执行 show databases; 查询
 
