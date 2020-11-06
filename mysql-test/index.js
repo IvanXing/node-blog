@@ -4,7 +4,7 @@ const mysql = require('mysql')
 const con = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: '123qweasd',
+    password: '123456abc',
     port: '3306',
     database: 'myblog'
 })
@@ -13,7 +13,8 @@ const con = mysql.createConnection({
 con.connect()
 
 // 执行 sql 语句, query 异步执行
-const sql = `insert into blogs (title, content, createtime, author) values ('标题C', '内容C',1546871704408, 'zhangsan')`
+const sql = 'select * from users;'
+// const sql = `insert into blogs (title, content, createtime, author) values ('标题C', '内容C',1546871704408, 'zhangsan')`
 con.query(sql, (err, result) => {
     if (err) {
         console.error(err)
