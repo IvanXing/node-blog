@@ -5,8 +5,9 @@ const serverHandle = (req, res) => {
   res.setHeader('Content-type', 'application/json')
 
   const resData = {
-    name: 'ivan',
+    name: 'ivanq',
     site: 'sh',
+    env: process.env.NODE_ENV 
   }
 
   res.end(

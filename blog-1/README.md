@@ -10,6 +10,9 @@
   - cross-env NODE_ENV=dev，设置当前是dev环境，兼容linux和windows环境
 
 - npm run dev
+- npm run prd
+
+- 通过 process.env.NODE_ENV 来识别 "dev": "cross-env NODE_ENV=dev nodemon ./bin/www.js" cross-env NODE_ENV指定的环境
 
 # 二、项目分层
 
