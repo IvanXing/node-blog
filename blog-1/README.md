@@ -16,10 +16,14 @@
 
 # 二、项目分层
 
+- www.js里创建http，监听端口
+- 调用app.js中，设置请求头，解析url和参数，处理路由，未命中的404
+- router中只管路由path，处理参数，返回正确格式
+- controller中处理数据逻辑
+
 ## 1. 创建路由
 
 - 新建 src/router/blog.js & user.js
-- www.js里创建http，调用app.js中放参数和返回值，逻辑放router中
 
 ## 2. 建立数据模型
 
