@@ -1,3 +1,4 @@
+const querystring = require('querystring')
 const handleBlogRouter = require('./src/router/blog');
 const handleUserRouter = require('./src/router/user');
 
@@ -8,6 +9,9 @@ const serverHandle = (req, res) => {
   // 统一处理 url放入res中
   const url = req.url;
   res.path = url.split('?')[0];
+
+  // 解析get的url参数 放入req的query中
+  req.query = querystring.parse(url.split('?')[1])
 
   // 处理 blog 路由
   const blogData = handleBlogRouter(req, res);
