@@ -19,11 +19,12 @@
 ## 1. 创建路由
 
 - 新建 src/router/blog.js & user.js
+- www.js里创建http，调用app.js中放参数和返回值，逻辑放router中
 
 ## 2. 建立数据模型
 
-- 作用：在res.end返回时，返回一个清晰的数据结构，包含errno
 - 新建 src/model/resModel.js
+- 作用：在res.end返回时，返回一个清晰的数据结构，包含errno
 
 ## 3. 处理层 controller
 
