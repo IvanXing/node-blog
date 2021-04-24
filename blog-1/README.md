@@ -16,6 +16,8 @@
 
 # 二、项目分层
 
+## 0. 分层总结
+
 - www.js里创建http，监听端口
 - 调用app.js中，设置请求头，解析url和参数，处理路由，未命中的404
 - router中只管路由path，处理参数，返回正确格式
@@ -41,6 +43,8 @@
 - app.js 中是设置 请求头，404，以及返回值的公共逻辑，不涉及业务
 - src/router 中 只管路由相关，来什么参数，返回给客户端什么，且是正确的格式
 - src/controller 中处理 sql 逻辑，返回值，根据参数处理数据
+
+- postdata是res.on监听data和end, res.end是一个异步的过程，需要promise
 
 ## 5. GET 直接通过参数处理  POST 异步流接受数据，需要用promise处理 POST时候的 postData
 
