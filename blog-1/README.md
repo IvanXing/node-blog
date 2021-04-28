@@ -45,6 +45,19 @@
 - src/controller 中处理 sql 逻辑，返回值，根据参数处理数据
 
 - postdata是res.on监听data和end, res.end是一个异步的过程，需要promise
+```
+ if (method === "POST") {
+    let postData = "";
+    req.on("data", chunk => {
+      postData += chunk.toString();
+    });
+    req.on("end", () => {
+      resData.postData = postData;
+      // 返回
+      res.end(JSON.stringify(resData));
+    });
+  }
+```
 
 ## 5. GET 直接通过参数处理  POST 异步流接受数据，需要用promise处理 POST时候的 postData
 
