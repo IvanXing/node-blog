@@ -1,8 +1,42 @@
 const querystring = require('querystring')
 const handleBlogRouter = require('./src/router/blog');
 const handleUserRouter = require('./src/router/user');
+const { resolve } = require('path');
+
+/*
+** 用于处理 post请求 的post data
+*/
+const getPostData = (req) => {
+  const promise = new Promise((resolve, reject) => {
+    if (req.method !== 'POST') {
+      resolve({});
+      return;
+    }
+    if (req.headers['content-type'] !== 'application/json') {
+      resolve({});
+      return;
+    }
+    let postData = '';
+    req.on('data', chunk => {
+      postData += chunk.toString();
+    })
+    req.on('end', () => {
+      if (!postData) {
+        resolve({})
+        return;
+      }
+      resolve(
+        JSON.parse(postData)
+      )
+    })
+
+  })
+  return promise;
+ 
+}
 
 const serverHandle = (req, res) => {
+
   // 设置返回格式为json
   res.setHeader('Content-type', 'application/json');
 
