@@ -58,6 +58,12 @@
     });
   }
 ```
+- 经过实际测试
+```
+req.headers['content-type'] 中，content 必须用小写，否则获取不到。
+res.setHeader('Content-type', 'application/json') 中，content 大写小写浏览器都可以识别。但是，根据 http 协议的统一格式，还是建议 C 大写。
+因此，总结一下。req.headers['content-type'] 中用小写，res.setHeader('Content-type', 'application/json') 中用大写。
+```
 
 ## 5. GET 直接通过参数处理  POST 异步流接受数据，需要用promise处理 POST时候的 postData
 
