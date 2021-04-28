@@ -42,14 +42,14 @@ const serverHandle = (req, res) => {
 
   // 统一处理 url放入res中
   const url = req.url;
-  res.path = url.split('?')[0];
+  res.path = url.split('?')[0];  //path是前半部分
 
   // 解析get的url参数 放入请求req的query中
-  req.query = querystring.parse(url.split('?')[1])
+  req.query = querystring.parse(url.split('?')[1])  // query后半部分
 
   // 处理 请求传入参数 postData
   getPostData(req).then(postData => {
-    
+
     req.body = postData;  // 放入请求req的body中
 
     // 处理 blog 路由
