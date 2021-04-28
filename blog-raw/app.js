@@ -23,7 +23,7 @@ const getPostData = (req) => {
     req.on('end', () => {
       if (!postData) {
         resolve({})
-        return;
+        return; 
       }
       resolve(
         JSON.parse(postData)
@@ -44,27 +44,36 @@ const serverHandle = (req, res) => {
   const url = req.url;
   res.path = url.split('?')[0];
 
-  // 解析get的url参数 放入req的query中
+  // 解析get的url参数 放入请求req的query中
   req.query = querystring.parse(url.split('?')[1])
 
-  // 处理 blog 路由
-  const blogData = handleBlogRouter(req, res);
-  if (blogData) {
-    res.end(JSON.stringify(blogData));
-    return;
-  }
+  // 处理 请求传入参数 postData
+  getPostData(req).then(postData => {
+    
+    req.body = postData;  // 放入请求req的body中
 
-  // 处理 user 路由
-  const userData = handleUserRouter(req, res);
-  if (userData) {
-    res.end(JSON.stringify(userData));
-    return;
-  }
+    // 处理 blog 路由
+    const blogData = handleBlogRouter(req, res);
+    if (blogData) {
+     res.end(JSON.stringify(blogData));
+     return;
+    }
 
-  // 未命中路由，返回 404
-  res.writeHead(404, {"Content-type": "text/plain"});
-  res.write("404 Not Found");
-  res.end();
+    // 处理 user 路由
+    const userData = handleUserRouter(req, res);
+    if (userData) {
+     res.end(JSON.stringify(userData));
+     return;
+    }
+
+    // 未命中路由，返回 404
+    res.writeHead(404, {"Content-type": "text/plain"});
+    res.write("404 Not Found");
+    res.end();
+
+  })
+
+ 
 
 };
 
