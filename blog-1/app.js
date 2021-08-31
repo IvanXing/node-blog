@@ -70,11 +70,24 @@ const serverHandle = (req, res) => {
       return
     }
 
-    // 处理 user 路由
+    /*
+    ** 处理 user 路由
+    */
+
+    // const userData = handleUserRouter(req, res);
+    // if (userData) {
+    //   res.end(JSON.stringify(userData));
+    //   return;
+    // }
+
     const userData = handleUserRouter(req, res);
     if (userData) {
-      res.end(JSON.stringify(userData));
-      return;
+      userData.then(userData => {
+        res.end(
+          JSON.stringify(userData)
+        )
+      })
+      return
     }
 
     // 未命中路由，返回 404
