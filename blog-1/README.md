@@ -206,3 +206,37 @@ select version();
 - src/db/mysql.js => 执行sql函数模块实现
 - mysql.js 中返回promise => router/blog.js & app.js 中接收promise改造
 
+# 五、登录
+
+- 核心：登录校验 & 登录信息存储
+- cookie 和 session
+- session 写入 redis
+
+## 5.1 cookie
+
+### 5.1.1 什么是cookie
+
+- 存储在浏览器的一段字符串，最大5kb
+- 跨域不共享
+- 格式如 k1=v1;k2=v2;k3=v3; 因此可以存储结构化数据
+- 每次发送http请求，会将请求域的cookie一起发送给server
+- server端可以修改cookie并返回浏览器
+- 浏览器中也可以通过js修改cookie，但是有限制
+
+### 5.1.2 js操作cookie，浏览器查看cookie
+
+- 客户端查看cookie，三种方式
+  - 1. 浏览器network中，请求头和返回体中
+  - 2. 浏览器application中，左侧
+  - 3. console中输入document.cookie
+
+- JS查看修改cookie（有限制）
+  - 不能修改，只能直接累加 document.cookie = 'k2=200'
+
+### 5.1.3 Node Server端操作cookie实现登录验证
+
+- 查看cookie
+
+- 修改cookie
+
+- 实现登录验证
