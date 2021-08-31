@@ -250,3 +250,10 @@ select version();
 ```js
 res.setHeader('Set-Cookie', `username=${data.username}; path=/; httpOnly; expires=${getCookieExpires()}`)
 ```
+
+## 5.2 session
+
+- cookie存储username明文，暴露
+- 如何解决：cookie中存储userid，server端对应username，session，server端存储用户信息
+- session是登录存储会话信息的统称
+
