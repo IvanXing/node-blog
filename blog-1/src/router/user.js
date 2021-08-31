@@ -1,6 +1,16 @@
 const { login } = require('../controller/user')
 const { SuccessModel, ErrorModel } = require('../model/resModel')
 
+
+// 获取cookie的过期时间
+const getCookieExpires = () => {
+  const d = new Date()
+  d.setTime(d.getTime() + (24 * 60 * 60 * 1000))       // 当前时间加一天单位ms，转换GMT格式
+  console.log('d.toGMTString() is', d.toGMTString())
+  return d.toGMTString()
+}
+
+
 const handleUserRouter = (req, res) => {
     const method = req.method;  // GET POST
   
@@ -13,7 +23,7 @@ const handleUserRouter = (req, res) => {
         if (data.username) {
           
           // 存储cookie path=/是跟路由，所有路由生效，否则就是本url
-          res.setHeader('Set-Cookie', `username=${data.username}; path=/`)
+          res.setHeader('Set-Cookie', `username=${data.username}; path=/; httpOnly; expires=${getCookieExpires()}`)
 
           return new SuccessModel()
         } 

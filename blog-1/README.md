@@ -237,7 +237,16 @@ select version();
 
 - 查看cookie
   - cookie在req.headers中
-
 - 修改cookie
-
+  - res.setHeader('Set-Cookie', `username=${data.username}; path=/`)
+  - path=/ 标识根目录，适用于整个url
 - 实现登录验证
+  - 登录存储cookie，后续接口验证cookie中的username
+
+### 5.1.4 cookie的限制
+
+- httpOnly 浏览器修改无效，设置username也会被之前的username覆盖
+- expires 设置过期时间
+```js
+res.setHeader('Set-Cookie', `username=${data.username}; path=/; httpOnly; expires=${getCookieExpires()}`)
+```
