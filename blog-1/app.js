@@ -50,14 +50,15 @@ const serverHandle = (req, res) => {
     //  放到 新定义的 req.body 中
     req.body = postData;
 
-    // 处理 blog 路由
-
+    /*
+    ** 处理 blog 路由
+    */
     // const blogData = handleBlogRouter(req, res);
     // if (blogData) {
     //   res.end(JSON.stringify(blogData));
     //   return;
     // }
-    
+
     // promise 改造
     const blogResult = handleBlogRouter(req, res);
     if (blogResult) {

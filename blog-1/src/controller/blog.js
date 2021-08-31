@@ -1,7 +1,7 @@
 const { exec }  = require('../db/mysql')
 
 const getList = (author, keyword) => {
-  let sql = `select * from blogs where 1=1 `
+  let sql = `select * from blogs where 1=1 `    // 写where 1=1是为了后面连接sql语句不报错，注意最后的空格
   if (author) {
     sql += `and author='${author}' `
   }
@@ -9,29 +9,33 @@ const getList = (author, keyword) => {
     sql += `and title like '%${keyword}%'`
   }
   sql += `order by createtime desc;`
-
   // 返回promise
   return exec(sql)
 }
 
 const getDetail = (id) => {
-  // 返回假数据
-  return {
-    id: 1,
-    title: '标题A',
-    content: '内容A',
-    createTime: '1603285217168',
-    author: 'zhangsan'
-  }
+  const sql = `select * from blogs where id='${id}'`
+  return exec(sql).then(rows => {       // 返回只有一项的数组，取第一项
+    return rows[0]
+  })
 }
 
 const newBlog = (blogData = {}) => {
   // blogData 是一个博客对象，包含 title content author 属性
-  console.log('newBlog postData::', blogData)
-
-  return {
-    id: 3  // 表示新建博客，插入到数据表里的id
-  }
+  const title = blogData.title
+  const content = blogData.content
+  const author = blogData.author
+  const createTime = Date.now()
+  const sql = `
+    insert into blogs (title, content, createtime, author)
+    values ('${title}', '${content}', ${createTime}, '${author}');
+  `
+  return exec(sql).then(insertData => {
+    console.log('insertData is', insertData)
+    return {
+      id: insertData.insertId   // insertId 本次插入的返回id
+    }
+  })
 }
 
 const updateBlog = (id, blogData = {}) => {
