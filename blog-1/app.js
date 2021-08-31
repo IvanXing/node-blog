@@ -51,10 +51,22 @@ const serverHandle = (req, res) => {
     req.body = postData;
 
     // 处理 blog 路由
-    const blogData = handleBlogRouter(req, res);
-    if (blogData) {
-      res.end(JSON.stringify(blogData));
-      return;
+
+    // const blogData = handleBlogRouter(req, res);
+    // if (blogData) {
+    //   res.end(JSON.stringify(blogData));
+    //   return;
+    // }
+    
+    // promise 改造
+    const blogResult = handleBlogRouter(req, res);
+    if (blogResult) {
+      blogResult.then(blogData => {
+        res.end(
+          JSON.stringify(blogData)
+        )
+      })
+      return
     }
 
     // 处理 user 路由

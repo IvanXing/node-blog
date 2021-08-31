@@ -204,4 +204,5 @@ select version();
 - npm i mysql --save 安装MySQl
 - src下创建文件夹conf下创建db.js，根据环境切换连接地址
 - src/db/mysql.js => 执行sql函数模块实现
+- mysql.js 中返回promise => router/blog.js & app.js 中接收promise改造
 
