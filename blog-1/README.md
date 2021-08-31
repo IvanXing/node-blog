@@ -141,9 +141,10 @@ DROP COLUMN `state`;
 
 ```sql
 use myblog;
--- show tables;
+-- show tables; 显示所有的表
 
 -- 插入
+-- mysql关键字需要``引起来，列名-值
 insert into users(username, `password`, realname) values ('zhangsan', '123', '张三');
 insert into users(username, `password`, realname) values ('lisi', '123', '李四');
 

@@ -13,8 +13,9 @@ const con = mysql.createConnection({
 con.connect()
 
 // 执行 sql 语句, query 异步执行
-const sql = 'select * from users;'
-// const sql = `insert into blogs (title, content, createtime, author) values ('标题C', '内容C',1546871704408, 'zhangsan')`
+const sql = 'select * from blogs;'
+// const sql = `insert into blogs (title, content, createtime, author) values ('标题D', '内容D',1226871704408, 'zhangsan')`
+// const sql = `delete from blogs where title = '标题D'`
 con.query(sql, (err, result) => {
     if (err) {
         console.error(err)

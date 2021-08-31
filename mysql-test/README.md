@@ -1,3 +1,4 @@
+## 安装
 - npm init -y
 - npm i mysql
 

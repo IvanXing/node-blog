@@ -1,6 +1,11 @@
 const { add, mul } = require('./a')
 const _ = require('lodash')
 
+// 解构语法实际如下解析：
+// const opts = require('./a')
+// const add = opts.add
+// const mul = opts.mul
+
 const sum = add(10, 20)
 const result = mul(100, 200)
 
