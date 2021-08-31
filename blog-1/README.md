@@ -195,3 +195,13 @@ select version();
 
 - mysql >= 5版本时 varchar(10) 可以存储10个汉字
 - `Date.now()` 转化时间戳
+
+
+# 四、SQL实现
+
+## 1. Node.js链接MySQL工具
+
+- npm i mysql --save 安装MySQl
+- src下创建文件夹conf下创建db.js，根据环境切换连接地址
+- src/db/mysql.js => 执行sql函数模块实现
+
