@@ -236,6 +236,7 @@ select version();
 ### 5.1.3 Node Server端操作cookie实现登录验证
 
 - 查看cookie
+  - cookie在req.headers中
 
 - 修改cookie
 
