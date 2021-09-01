@@ -413,7 +413,34 @@ process.stdin.pipe(process.stdout)
 - app.js 中通过access函数调用写日志
 
 
-- 日志文件拆分，日志内容分析
+## 7.3 日志文件拆分
+
+- 体积变大，一个文件不好处理
+- 按照时间划分日志，如2020-01-01.access.log
+- 实现方式：linux的crontab命令，即定时任务
+  - 设置定时任务，格式 *****command   分、时、号、月、每周几 执行
+  - 把access.log拷贝并重命名为2019-02-10.access.log并清空继续积累日志
+
+- 实现：
+- logs目录：/Users/myname/MyProject/Blog-Node/blog-1/logs
+- utils文件夹下创建copy.sh文件
+```sh
+#!/bin/sh   => 执行sh
+cd /Users/[myname]/MyProject/Blog-Node/blog-1/logs  => 切换到log路径
+cp access.log $(date +%Y-%m-%d).access.log   => 重命名
+echo "" > access.log  => 清空原文件
+```
+- sh copy.sh
+
+- 每天0点执行一次
+```sh
+// 编辑
+crontab -e 
+进入文件 
+编辑： * 0 * * * sh /Users/[myname]/MyProject/Blog-Node/blog-1/logs/copy.sh
+// 查看当前所有任务
+crontab -l
+```
 
 
 
