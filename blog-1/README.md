@@ -442,6 +442,15 @@ crontab -e
 crontab -l
 ```
 
+## 7.4 日志分析
+
+- 如针对 access.log日志，分析 chrome占比
+- 日志按行存储，一行就是一条日志
+- 使用NodeJs的readline逐行读取（基于Stream，效率高）
+
+- 用不同浏览器跑http://localhost:8000/api/blog/list
+- utils下新建readline.js
+
 
 
 
