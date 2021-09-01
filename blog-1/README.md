@@ -322,9 +322,61 @@ del myname
 
 - router/blog.js & user.js 中加登录验证，登录改回POST
 
+# 六、联调
+
+- 登录功能依赖cookie，必须用浏览器联调
+- cookie跨域不共享，前端和server端必须同域
+- 需要用到nginx做代码，让前后端同域
+
+- cd html-test
+- yarn add http-server -g
+- http-server -p 8001   + 启动
+
+- 8001和8000 cookie跨域不共享， 访问 http://127.0.0.1:8001/api/blog/list ->404
+
+## 6.1 nginx
+
+### 6.1.1 概念
+- 高性能的web服务器，开源免费
+- 一般用于静态服务，负载均衡
+- 反向代理
+
+- 浏览器访问localhost/index.html -> nginx做一个统一入口，根目录去访问html服务，/api/去访问node服务
+
+### 6.1.2 安装使用
+- brew install nginx
+  - 配置文件 /usr/local/etc/nginx/nginx.conf
+  ```js
+  worker_processes  2; 开启两个进程
+  server {
+    listen 8080;
+  }
+  // 注释掉原有的location代理
+  // 新增（注意key value不要有冒号）
+  location / {   // 如果访问/根目录 走8001 html服务
+    proxy_pass http://localhost:8001;
+  }
+  location /api/ {   // 如果访问/api/目录 走8000 node服务
+    proxy_pass http://localhost:8000;
+    proxy_set_header Host $host;
+  }
+  ```
+
+- 测试配置文件格式是否正确 nginx -t  查询 写入正确
+- 启动 nginx
+- 重启 nginx -s reload
+- 停止 nginx -s stop
 
 
+#### 流程
 
+- 启动 页面http服务（http-server -p 8001） 和 node服务 （yarn dev） 以及 redis服务（redis-server）
+
+- 启动nginx监听8080端口，从http://localhost:8080/index.html访问，页面走 localhost:8001，服务走 localhost:8000
+
+- http://localhost:8000/api/blog/list 访问成功
+- http://127.0.0.1:8001/index.html 页面成功 api不成功
+- http://localhost:8080/index.html 都成功
 
 
 
