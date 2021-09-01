@@ -6,9 +6,8 @@ const handleUserRouter = (req, res) => {
     const method = req.method;  // GET POST
   
     // 登陆接口
-    if (method === 'GET' && res.path === '/api/user/login') {
-      // const { username, password } = req.body;
-      const { username, password } = req.query;
+    if (method === 'POST' && res.path === '/api/user/login') {
+      const { username, password } = req.body;
       const result = login(username, password);
       return result.then(data => {
         if (data.username) {
@@ -27,16 +26,16 @@ const handleUserRouter = (req, res) => {
       })
     }
 
-    // 登录验证测试
-    if (method === 'GET' && res.path === '/api/user/login-test') {
-      // 登陆过才有cookie
-      if (req.session.username) {
-        return Promise.resolve(new SuccessModel({
-          session: req.session
-        }))
-      } 
-      return Promise.resolve(new ErrorModel('尚未登录'))
-    }
+    // // 登录验证测试
+    // if (method === 'GET' && res.path === '/api/user/login-test') {
+    //   // 登陆过才有cookie
+    //   if (req.session.username) {
+    //     return Promise.resolve(new SuccessModel({
+    //       session: req.session
+    //     }))
+    //   } 
+    //   return Promise.resolve(new ErrorModel('尚未登录'))
+    // }
 }
 
 module.exports = handleUserRouter;

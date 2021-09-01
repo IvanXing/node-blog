@@ -320,6 +320,8 @@ del myname
 
 - src/conf/db.js中配置redis端口，db/redis.js中封装redis读取方法
 
+- router/blog.js & user.js 中加登录验证，登录改回POST
+
 
 
 
