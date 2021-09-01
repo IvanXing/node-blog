@@ -379,7 +379,36 @@ del myname
 - http://localhost:8080/index.html 都成功
 
 
+# 七、日志
 
+## 7.1 概念
+- 日志分类
+  - 1. 访问日志 access log（server端访问就有日志）
+  - 2. 自定义日志（包括自定义事件，错误记录等）
+- 日志要存在文件中，日志文件很大，写文件异步，不存在mysql（b树）和redis中
+
+## 7.2 nodejs文件操作，nodejs stream
+- 创建file-test文件夹
+- 读文件 fs.readFile 写文件 fs.writeFile 判断文件是否存在 fs.exists
+
+## 7.3 stream
+- 流 就要监听结束状态end
+- 但是写入读取可能会有大文件 => stream
+- IO操作，包括网络IO和文件IO，相比于cpu计算和内存读写，IO的特点就是慢 => stream 流，提高cpu和内存的效率
+```js
+// 标准输入输出，pipe就是管道（符合水流管道的模型图）
+// process.stdin 获取数据，直接通过管道传递给 process.stdout
+process.stdin.pipe(process.stdout)
+```
+- req.on('data'/'end') 就是网络IO流的方式，每传一点触发data，传完，触发end
+
+- 创建 stream-test 文件夹
+  - createReadStream / createWriteStream
+
+
+- 开发和使用
+
+- 日志文件拆分，日志内容分析
 
 
 
