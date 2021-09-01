@@ -253,7 +253,45 @@ res.setHeader('Set-Cookie', `username=${data.username}; path=/; httpOnly; expire
 
 ## 5.2 session
 
+### 5.2.1 cookie的问题 -> session
+
 - cookie存储username明文，暴露
 - 如何解决：cookie中存储userid，server端对应username，session，server端存储用户信息
 - session是登录存储会话信息的统称
+
+### 5.2.2 本地存储session的问题
+
+- 目前session直接是js变量，放在NodeJS进程内存中
+  - 1. 进程内存有限，访问量过大，内存暴增怎么办，引用，堆内存
+    - 操作系统会限制一个进程的最大可用内存
+  - 2. 正式线上运行是多进程，进程之间内存无法共享
+    - 每个Node都是分多个进程来跑的，多核处理器可以处理多个进程，每个进程都有session的话，进程内存不能共享
+
+- 解决方案 redis（可集群扩展）
+  - web serve常用的缓存数据库，数据存放在内存中
+  - 相比于mysql速度访问快（内存存储 vs 硬盘存储）
+  - redis内存存储成本高，数据量更小
+
+- 浏览器 -> web server (多进程) -> 访问同一个 redis & mysql
+
+- 为何session适合redis，而不是mysql
+  - session访问频繁，每次都需要验证session，对性能要求高
+  - session可以不考虑断电丢失的问题（redis不特殊配置会断电丢失）
+  - session数据量不会太大（相比于mysql中存储的数据）
+
+- 为何网站数据不适合redis
+  - api操作频率与session比太低
+  - 断电不能丢失，必须保留
+  - 数据量大，内存成本太高
+
+- 安装redis -> brew install redis
+
+
+
+
+
+
+
+
+
 
