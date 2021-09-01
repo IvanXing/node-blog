@@ -1,4 +1,5 @@
 const querystring = require('querystring');
+const { get, set } = require('./src/db/redis');
 const handleBlogRouter = require('./src/router/blog');
 const handleUserRouter = require('./src/router/user');
 
@@ -13,7 +14,7 @@ const getCookieExpires = () => {
 /*
 **  session数据
 */
-const SESSION_DATA = {}
+// const SESSION_DATA = {}
 
 /*
 ** 用于处理 post data
@@ -70,23 +71,51 @@ const serverHandle = (req, res) => {
     req.cookie[key] = val
   });
 
-  // 解析session
-  let needSetCookie = false;
-  let userId = req.cookie.userid;
-  if (userId) {
-    if (!SESSION_DATA[userId]) {
-      SESSION_DATA[userId] = {};
-    }
-  } else {
-    needSetCookie = true;
-    userId = `${Date.now()}_${Math.random()}`;
-    SESSION_DATA[userId] = {};
-  }
-  req.session = SESSION_DATA[userId];
+  // // 解析session
+  // let needSetCookie = false;
+  // let userId = req.cookie.userid;
+  // if (userId) {
+  //   if (!SESSION_DATA[userId]) {
+  //     SESSION_DATA[userId] = {};
+  //   }
+  // } else {
+  //   needSetCookie = true;
+  //   userId = `${Date.now()}_${Math.random()}`;
+  //   SESSION_DATA[userId] = {};
+  // }
+  // req.session = SESSION_DATA[userId];
 
+  /*
+  ** 解析 session （使用redis）
+  */
+  let needSetCookie = false;
+  let userId = req.cookie.userid
+  if (!userId) {
+    needSetCookie = true
+    userId = `${Date.now()}_${Math.random()}`;
+    // 初始化redis中的session值
+    set(userId, {})
+  }
+  // 获取session
+  req.sessionId = userId
+  get(req.sessionId).then(sessionData => {
+    if (sessionData == null) {
+      // 初始化redis中的session
+      set(req.sessionId, {})
+      // 设置session
+      req.session = {}
+    } else {
+      req.session = sessionData
+    }
+    console.log('req.session is=>', req.session)
+    
+    // 处理postData
+    return getPostData(req)
+  })
+  .then(postData => {
 
   // 处理 post data
-  getPostData(req).then(postData => {
+  // getPostData(req).then(postData => {
 
     //  放到 新定义的 req.body 中
     req.body = postData;
@@ -94,13 +123,6 @@ const serverHandle = (req, res) => {
     /*
     ** 处理 blog 路由
     */
-    // const blogData = handleBlogRouter(req, res);
-    // if (blogData) {
-    //   res.end(JSON.stringify(blogData));
-    //   return;
-    // }
-
-    // promise 改造
     const blogResult = handleBlogRouter(req, res);
     if (blogResult) {
       blogResult.then(blogData => {
@@ -117,13 +139,6 @@ const serverHandle = (req, res) => {
     /*
     ** 处理 user 路由
     */
-
-    // const userData = handleUserRouter(req, res);
-    // if (userData) {
-    //   res.end(JSON.stringify(userData));
-    //   return;
-    // }
-
     const userData = handleUserRouter(req, res);
     if (userData) {
       userData.then(userData => {
