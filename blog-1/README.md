@@ -261,7 +261,7 @@ res.setHeader('Set-Cookie', `username=${data.username}; path=/; httpOnly; expire
 
 ### 5.2.2 本地存储session的问题
 
-- 目前session直接是js变量，放在NodeJS进程内存中
+- 目前session直接是js变量，放在NodeJS进程内存中，进程重启丢失
   - 1. 进程内存有限，访问量过大，内存暴增怎么办，引用，堆内存
     - 操作系统会限制一个进程的最大可用内存
   - 2. 正式线上运行是多进程，进程之间内存无法共享
@@ -313,6 +313,12 @@ del myname
 - touch index.js
 - yarn add redis --save
 - node index.js 运行
+
+### 5.3.2 blog-1 中封装redis
+
+- yarn add redis --save
+
+- src/conf/db.js中配置redis端口，db/redis.js中封装redis读取方法
 
 
 
