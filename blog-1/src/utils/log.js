@@ -3,7 +3,9 @@ const path = require('path');
 
 // 写日志
 function writeLog(writeStream, log) {
-  writeStream.write(log + '\n')   // 关键代码
+  writeStream.write(log + '\n')   // 关键代码  
+  // 这里就是想写入一行文字，就用 writeStream 这个一个流对象，没必要用 pipe 。
+  // 用 pipe 至少得两个流对象，为此再额外创建一个，也没这个必要。
 }
 
 // 生成 write stream
