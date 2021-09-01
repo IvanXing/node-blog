@@ -406,7 +406,12 @@ process.stdin.pipe(process.stdout)
   - createReadStream / createWriteStream
 
 
-- 开发和使用
+## 7.2 开发日志
+
+- 根目录创建log文件 / access.log（访问日志） event.log（自定义日志）error.log(错误日志)
+- src下创建日志 utils/log.js
+- app.js 中通过access函数调用写日志
+
 
 - 日志文件拆分，日志内容分析
 
