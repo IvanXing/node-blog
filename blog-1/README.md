@@ -284,7 +284,36 @@ res.setHeader('Set-Cookie', `username=${data.username}; path=/; httpOnly; expire
   - 断电不能丢失，必须保留
   - 数据量大，内存成本太高
 
-- 安装redis -> brew install redis
+- 安装redis
+
+```js
+// 安装 brew install redis
+// 启动 redis-server
+// 打开操作界面 redis-cli （127.0.0.1:6379）
+// 关闭 brew services stop redis
+// 重启 brew services restart redis
+
+// redis是key-value数据库
+// 查看所有值
+keys *
+// 设置值
+set myname ivan
+// 取值
+get myname
+// 删除值
+del myname
+```
+
+## 5.3 Redis
+
+### 5.3.1 Node链接Redis
+
+- redis-test文件中
+- yarn init -y
+- touch index.js
+- yarn add redis --save
+- node index.js 运行
+
 
 
 
